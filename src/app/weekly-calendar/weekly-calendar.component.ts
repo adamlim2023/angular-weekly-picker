@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 
 export interface Data {
@@ -17,8 +17,11 @@ export class WeeklyCalendarComponent implements OnInit {
   @Input() data!: Data[];
   @Input() onClickDate!: (args: any) => void;
   @Input() onClickSummary!: (args: any) => void;
+  @ViewChild("slider") slider!: ElementRef;
   currentDate: any = moment();
   selectedDates: Data[] = [];
+  nextWeekDates: Data[] = [];
+  lastWeekDates: Data[] = [];
   index: number = 0;
   summary: any = {
     startDate: '',
@@ -27,6 +30,8 @@ export class WeeklyCalendarComponent implements OnInit {
     freetimes: 0,
   };
   days!: string[];
+
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
     moment.locale('en');
@@ -38,6 +43,9 @@ export class WeeklyCalendarComponent implements OnInit {
 
   handleInit(period: number) {
     this.selectedDates = [];
+    this.lastWeekDates = [];
+    this.nextWeekDates = [];
+
     this.summary = {
       startDate: '',
       endDate: '',
@@ -49,6 +57,18 @@ export class WeeklyCalendarComponent implements OnInit {
     for (let i = 1; i <= 5; i++) {
       const day = moment(weekStart).add(i, 'days').format("YYYY-MM-DD");
       this.selectedDates.push(this.getItemByDate(day));
+    };
+
+    var lastWeekStart = this.currentDate.clone().subtract(-7 * (period - 1), 'days').startOf('week');
+    for (let i = 1; i <= 5; i++) {
+      const day = moment(lastWeekStart).add(i, 'days').format("YYYY-MM-DD");
+      this.lastWeekDates.push(this.getItemByDate(day));
+    };
+
+    var nextWeekStart = this.currentDate.clone().subtract(-7 * (period + 1), 'days').startOf('week');
+    for (let i = 1; i <= 5; i++) {
+      const day = moment(nextWeekStart).add(i, 'days').format("YYYY-MM-DD");
+      this.nextWeekDates.push(this.getItemByDate(day));
     };
 
     this.selectedDates.map(item => {
@@ -72,12 +92,26 @@ export class WeeklyCalendarComponent implements OnInit {
   }
 
   handleNext() {
-    this.index += 1;
-    this.handleInit(this.index);
+    this.renderer.setStyle(this.slider.nativeElement, "transition", 'margin 0.5s');
+    this.renderer.setStyle(this.slider.nativeElement, "margin-left", '-1900px');
+    let that = this;
+    setTimeout(function () {
+      that.index += 1;
+      that.handleInit(that.index);
+      that.renderer.setStyle(that.slider.nativeElement, "transition", 'none');
+      that.renderer.setStyle(that.slider.nativeElement, "margin-left", '-950px');
+    }, 500);
   }
 
   handleBack() {
-    this.index -= 1;
-    this.handleInit(this.index);
+    this.renderer.setStyle(this.slider.nativeElement, "transition", 'margin 0.5s');
+    this.renderer.setStyle(this.slider.nativeElement, "margin-left", '0');
+    let that = this;
+    setTimeout(function () {
+      that.index -= 1;
+      that.handleInit(that.index);
+      that.renderer.setStyle(that.slider.nativeElement, "transition", 'none');
+      that.renderer.setStyle(that.slider.nativeElement, "margin-left", '-950px');
+    }, 500);
   }
 }

@@ -9,8 +9,20 @@
     <img src="/assets/left-arrow.png" />
   </button>
   <div class="slider-container">
-    <div class="slider">
+    <div class="slider" #slider>
+      <div *ngFor="let item of lastWeekDates; let i = index" class="card" (click)="onClickDate(item)">
+        <p class="day"><b>{{days[i + 1]}}</b></p>
+        <p class="date">{{item.date}}</p>
+        <p>Eelbroneeringuid: <b>{{item.appointments}}</b></p>
+        <p>Vabad ajad: <b>{{item.freetimes}}</b></p>
+      </div>
       <div *ngFor="let item of selectedDates; let i = index" class="card" (click)="onClickDate(item)">
+        <p class="day"><b>{{days[i + 1]}}</b></p>
+        <p class="date">{{item.date}}</p>
+        <p>Eelbroneeringuid: <b>{{item.appointments}}</b></p>
+        <p>Vabad ajad: <b>{{item.freetimes}}</b></p>
+      </div>
+      <div *ngFor="let item of nextWeekDates; let i = index" class="card" (click)="onClickDate(item)">
         <p class="day"><b>{{days[i + 1]}}</b></p>
         <p class="date">{{item.date}}</p>
         <p>Eelbroneeringuid: <b>{{item.appointments}}</b></p>

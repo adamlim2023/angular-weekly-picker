@@ -2,13 +2,21 @@
   display: flex;
   color: #555;
 
+  .slider-container {
+    width: 950px;
+    overflow-x: hidden;
+    height: 100px;
+  }
+
   p {
     margin: 0;
     font-size: 14px;
   }
 
   .card {
+    flex-shrink: 0;
     width: 180px;
+    height: 100px;
     box-sizing: border-box;
     margin: 0 5px;
     border: 1px solid #999;
@@ -47,6 +55,7 @@
 
 .slider-container {
   .slider {
+    margin-left: -950px;
     display: flex;
   }
 }
