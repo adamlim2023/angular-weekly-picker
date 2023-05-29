@@ -16,29 +16,37 @@ export class AppComponent {
   title = 'weekly-picker';
   data: Data[] = [
     {
-      date: "2021-06-07",
+      date: "2023-05-30",
       appointments: 72,
       freetimes: 104
     },
     {
-      date: "2021-06-08",
+      date: "2023-05-31",
       appointments: 2,
       freetimes: 5
     },
     {
-      date: "2021-06-09",
+      date: "2023-06-01",
       appointments: 70,
       freetimes: 40
     },
     {
-      date: "2021-06-10",
+      date: "2023-06-02",
       appointments: 70,
       freetimes: 40
     },
     {
-      date: "2021-06-11",
+      date: "2023-06-08",
       appointments: 70,
       freetimes: 40
     },
-  ]
+  ];
+
+  handleClickDate(data: any) {
+    console.log(data)
+  }
+
+  handleClickSummary(data: any) {
+    console.log(data);
+  }
 }

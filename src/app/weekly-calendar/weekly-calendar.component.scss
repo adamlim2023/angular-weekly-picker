@@ -1,41 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 .container {
   display: flex;
-  font-family: 'Inter', sans-serif;
   color: #555;
 
   p {
     margin: 0;
+    font-size: 14px;
   }
 
   .card {
-    width: 200px;
-    margin: 0 20px;
+    width: 180px;
+    box-sizing: border-box;
+    margin: 0 5px;
     border: 1px solid #999;
     border-radius: 8px;
-    padding: 16px;
+    padding: 10px;
     cursor: pointer;
 
     &:hover {
-      background-color: #eeeeee50;
+      background-color: #eeeeeeE0;
+    }
+
+    .date {
+      font-size: 11px;
+      margin-top: 4px;
+      margin-bottom: 8px;
     }
   }
 
   .arrow {
-    width: 48px;
     border: 1px solid #999;
     border-radius: 8px;
     background: transparent;
+    margin: 0 5px;
     cursor: pointer;
 
     img {
-      width: 20px;
+      width: 16px;
+      opacity: 0.5;
     }
   }
 }
 
-
-.slider {
-  display: flex;
+.slider-container {
+  .slider {
+    display: flex;
+  }
 }

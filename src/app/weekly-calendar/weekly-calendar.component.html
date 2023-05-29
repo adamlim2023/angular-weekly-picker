@@ -1,22 +1,24 @@
 <div class="container">
-  <div class="card summary">
+  <div class="card summary" (click)="onClickSummary(summary)">
     <p><b>Nädal</b></p>
-    <p>today</p>
-    <p>Eelbroneeringuid: <b>988</b></p>
-    <p>Vabad ajad: <b>1082</b></p>
+    <p class="date">{{summary.startDate}}-{{summary.endDate}}</p>
+    <p>Eelbroneeringuid: <b>{{summary.appointments}}</b></p>
+    <p>Vabad ajad: <b>{{summary.freetimes}}</b></p>
   </div>
-  <button class="arrow back">
+  <button class="arrow back" (click)="handleBack()">
     <img src="/assets/left-arrow.png" />
   </button>
-  <div class="slider">
-    <div *ngFor="let item of data" class="card">
-      <p><b>Title</b></p>
-      <p>{{item.date}}</p>
-      <p>Eelbroneeringuid: <b>{{item.appointments}}</b></p>
-      <p>Vabad ajad: <b>{{item.freetimes}}</b></p>
+  <div class="slider-container">
+    <div class="slider">
+      <div *ngFor="let item of selectedDates; let i = index" class="card" (click)="onClickDate(item)">
+        <p><b>{{days[i + 1]}}</b></p>
+        <p class="date">{{item.date}}</p>
+        <p>Eelbroneeringuid: <b>{{item.appointments}}</b></p>
+        <p>Vabad ajad: <b>{{item.freetimes}}</b></p>
+      </div>
     </div>
   </div>
-  <button class="arrow next">
+  <button class="arrow next" (click)="handleNext()">
     <img src="/assets/right-arrow.png" />
   </button>
 </div>

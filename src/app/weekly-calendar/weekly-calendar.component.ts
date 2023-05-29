@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 export interface Data {
@@ -13,17 +13,67 @@ export interface Data {
   styleUrls: ['./weekly-calendar.component.scss']
 })
 
-export class WeeklyCalendarComponent {
+export class WeeklyCalendarComponent implements OnInit {
   @Input() data!: Data[];
-  constructor() {
+  @Input() onClickDate!: (args: any) => void;
+  @Input() onClickSummary!: (args: any) => void;
+  currentDate: any = moment();
+  selectedDates: Data[] = [];
+  index: number = 0;
+  summary: any = {
+    startDate: '',
+    endDate: '',
+    appointments: 0,
+    freetimes: 0,
+  };
+  days: string[] = moment.weekdays().map(item => item[0]);
 
-    var currentDate = moment();
-    var weekStart = currentDate.clone().startOf('week');
+  ngOnInit() {
+    this.handleInit(0)
+  }
 
-    var days = [];
-    for (let i = 1; i <= 5; i++) {
-      days.push(moment(weekStart).add(i, 'days').format("MMMM Do,dddd"));
+  handleInit(period: number) {
+    this.selectedDates = [];
+    this.summary = {
+      startDate: '',
+      endDate: '',
+      appointments: 0,
+      freetimes: 0,
     };
-    console.log(days);
+
+    var weekStart = this.currentDate.clone().subtract(-7 * period, 'days').startOf('week');
+    for (let i = 1; i <= 5; i++) {
+      const day = moment(weekStart).add(i, 'days').format("YYYY-MM-DD");
+      this.selectedDates.push(this.getItemByDate(day));
+    };
+
+    this.selectedDates.map(item => {
+      this.summary.appointments += item.appointments;
+      this.summary.freetimes += item.freetimes;
+    });
+    this.summary.startDate = this.selectedDates[0].date;
+    this.summary.endDate = this.selectedDates[4].date;
+  }
+
+  getItemByDate(date: string) {
+    let filteredItems = this.data.filter(item => item.date === date);
+    if (filteredItems.length > 0) {
+      return filteredItems[0]
+    }
+    return {
+      date,
+      appointments: 0,
+      freetimes: 0
+    }
+  }
+
+  handleNext() {
+    this.index += 1;
+    this.handleInit(this.index);
+  }
+
+  handleBack() {
+    this.index -= 1;
+    this.handleInit(this.index);
   }
 }
