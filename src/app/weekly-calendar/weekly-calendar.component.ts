@@ -26,9 +26,13 @@ export class WeeklyCalendarComponent implements OnInit {
     appointments: 0,
     freetimes: 0,
   };
-  days: string[] = moment.weekdays().map(item => item[0]);
+  days!: string[];
 
   ngOnInit() {
+    moment.locale('en');
+    const localLocale = moment();
+    localLocale.locale('et');
+    this.days = localLocale.localeData().weekdays().map(item => item[0]);
     this.handleInit(0)
   }
 
