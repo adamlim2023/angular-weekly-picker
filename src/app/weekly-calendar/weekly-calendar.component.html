@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="card summary">
+    <p><b>Nädal</b></p>
+    <p>today</p>
+    <p>Eelbroneeringuid: <b>988</b></p>
+    <p>Vabad ajad: <b>1082</b></p>
+  </div>
+  <button class="arrow back">
+    <img src="/assets/left-arrow.png" />
+  </button>
+  <div class="slider">
+    <div *ngFor="let item of data" class="card">
+      <p><b>Title</b></p>
+      <p>{{item.date}}</p>
+      <p>Eelbroneeringuid: <b>{{item.appointments}}</b></p>
+      <p>Vabad ajad: <b>{{item.freetimes}}</b></p>
+    </div>
+  </div>
+  <button class="arrow next">
+    <img src="/assets/right-arrow.png" />
+  </button>
+</div>
