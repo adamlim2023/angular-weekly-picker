@@ -19,13 +19,13 @@
     height: 100px;
     box-sizing: border-box;
     margin: 0 5px;
-    border: 1px solid #999;
+    border: 1px solid #1388DB;
     border-radius: 8px;
     padding: 10px;
     cursor: pointer;
 
     &:hover {
-      background-color: #eeeeeeE0;
+      background-color: #1388DB20;
     }
 
     .day {
@@ -40,9 +40,9 @@
   }
 
   .arrow {
-    border: 1px solid #999;
     border-radius: 8px;
-    background: transparent;
+    border: 1px solid #1388DB;
+    background: linear-gradient(-90deg, #1388DB50, #EEF9FF);
     margin: 0 5px;
     cursor: pointer;
 
